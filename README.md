@@ -65,7 +65,7 @@ Array of objects representing the folders you want to compare against. The forma
 grunt.initConfig({
   image_check: {
     retina: {
-      baseline: 'images/1x/'
+      baseline: 'images/1x/',
       strict: true,
       compare: [
         {

@@ -6,7 +6,14 @@
  * Licensed under the MIT license.
  */
 
+var checker = require('./checker');
+
 module.exports = function(grunt) {
-  grunt.registerMultiTask('image_check', 'Verifies that your images are resized correctly for different resolutions', function() {
-  });
+  grunt.registerMultiTask(
+    'image_check',
+    'Verifies that your images are resized correctly for different resolutions',
+    function() {
+      checker.check(this.data);
+    }
+  );
 };
