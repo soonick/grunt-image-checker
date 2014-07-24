@@ -1,0 +1,35 @@
+{
+  "name": "grunt-image-check",
+  "description": "Verify that your images are correct on different resolutions",
+  "version": "0.1.0",
+  "homepage": "https://github.com/soonick/grunt-image-check",
+  "author": {
+    "name": "Adrian Ancona Novelo",
+    "email": "soonick5@yahoo.com.mx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/soonick/grunt-image-check.git"
+  },
+  "bugs": {
+    "url": "https://github.com/soonick/grunt-image-check/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/soonick/grunt-image-check/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.4"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.4"
+  }
+}
