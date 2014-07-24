@@ -1,0 +1,15 @@
+{
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "quotes": "single",
+    "brace-style": [2, "1tbs"],
+    "no-spaced-func": [2, true],
+    "valid-jsdoc": [0, true],
+    "camelcase": [2, true],
+    "space-in-brackets": [2, "never"],
+    "space-infix-ops": [2, true],
+    "space-after-keywords": [2, "always"]
+  }
+}

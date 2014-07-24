@@ -6,9 +6,12 @@
  * Licensed under the MIT license.
  */
 
-'use strict';
-
 module.exports = function(grunt) {
   grunt.initConfig({
+    eslint: {
+      target: ['tasks/', 'Gruntfile.js']
+    }
   });
+
+  grunt.loadNpmTasks('grunt-eslint');
 };

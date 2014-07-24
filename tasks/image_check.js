@@ -6,8 +6,6 @@
  * Licensed under the MIT license.
  */
 
-'use strict';
-
 module.exports = function(grunt) {
   grunt.registerMultiTask('image_check', 'Verifies that your images are resized correctly for different resolutions', function() {
   });
