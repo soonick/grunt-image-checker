@@ -39,12 +39,6 @@ Type: `String`
 
 Path to a folder where the images that are going to be used as baseline live
 
-#### options.strict
-Type: `Boolean`
-Default value: `false`
-
-If this is set to true, the script will fail if any image from the baseline is not present on the folders you are comparing against or if there is a file in the folders you are comparing and it doesn't exist in the baseline
-
 #### options.compare
 Type: `Array`
 
@@ -77,3 +71,9 @@ grunt.initConfig({
   },
 });
 ```
+
+## Development
+
+### Integration tests
+
+We have a few integration tests where we expect the task to fail. For these scenarios we use a special flag: *negateOutput* to return true when the task fails and false when the task passes.

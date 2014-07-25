@@ -13,7 +13,11 @@ module.exports = function(grunt) {
     'image_check',
     'Verifies that your images are resized correctly for different resolutions',
     function() {
-      checker.check(this.data);
+      if (this.data.negateOutput) {
+        return !checker.check(this.data);
+      } else {
+        return checker.check(this.data);
+      }
     }
   );
 };

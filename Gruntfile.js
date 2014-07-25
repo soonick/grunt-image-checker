@@ -12,16 +12,38 @@ module.exports = function(grunt) {
       target: ['tasks/', 'Gruntfile.js']
     },
 
+    // Integration tests
     image_check: {
-      retina: {
-        baseline: 'images/1x/',
-        strict: true,
+      allFilesHaveCorrectSize: {
+        baseline: 'tests/integration/data/success/baseline',
         compare: [
           {
-            path: 'images/2x/',
+            path: 'tests/integration/data/success/compare',
             proportion: 2
           }
         ]
+      },
+
+      fileMissing: {
+        baseline: 'tests/integration/data/notStrictFileMissing/baseline',
+        compare: [
+          {
+            path: 'tests/integration/data/notStrictFileMissing/compare',
+            proportion: 2
+          }
+        ],
+        negateOutput: true
+      },
+
+      oneFileWithIncorrectSize: {
+        baseline: 'tests/integration/data/wrongSize/baseline',
+        compare: [
+          {
+            path: 'tests/integration/data/wrongSize/compare',
+            proportion: 2
+          }
+        ],
+        negateOutput: true
       }
     }
   });

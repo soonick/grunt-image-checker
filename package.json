@@ -32,5 +32,9 @@
   },
   "peerDependencies": {
     "grunt": "~0.4.4"
+  },
+  "dependencies": {
+    "image-size": "^0.3.2",
+    "walk": "^2.3.3"
   }
 }
