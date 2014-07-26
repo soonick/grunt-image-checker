@@ -62,7 +62,6 @@ grunt.initConfig({
   image_check: {
     retina: {
       baseline: 'images/1x/',
-      strict: true,
       compare: [
         {
           path: 'images/2x/',
