@@ -20,7 +20,7 @@ module.exports = function(grunt) {
     },
 
     // Integration tests
-    'image_check': {
+    imageCheck: {
       allFilesHaveCorrectSize: {
         baseline: 'tests/integration/data/success/baseline',
         compare: [
@@ -60,5 +60,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-mocha-test');
 
-  grunt.registerTask('test', ['eslint', 'mochaTest', 'image_check']);
+  grunt.registerTask('test', ['eslint', 'mochaTest', 'imageCheck']);
 };

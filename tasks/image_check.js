@@ -10,7 +10,7 @@ var checker = require('./checker');
 
 module.exports = function(grunt) {
   grunt.registerMultiTask(
-    'image_check',
+    'imageCheck',
     'Verifies that your images are resized correctly for different resolutions',
     function() {
       if (this.data.negateOutput) {
