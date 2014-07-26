@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/soonick/grunt-image-checker.svg?branch=master)](https://travis-ci.org/soonick/grunt-image-checker)
+
 # grunt-image-check
 
 > Verify that your images are correctly resized for different resolutions
