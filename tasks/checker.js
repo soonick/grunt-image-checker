@@ -17,6 +17,13 @@ module.exports = {
   baselinePath: null,
 
   /**
+   * Keeps the status of the checks. If this becomes false it means there was
+   * an error.
+   * @type {boolean}
+   */
+  success: true,
+
+  /**
    * Files that will be used as baseline. The key is the path to the file and
    * the value is the dimension
    * @type {array}
@@ -55,12 +62,11 @@ module.exports = {
 
   /**
    * Populates baselineFiles array
-   * @param {string} path - path to baseline folder
    */
-  populateBaseline: function(path) {
+  populateBaseline: function() {
     var walkerOptions = {
       listeners: {
-        file: this.saveFileInArray.bind(this, this.baselineFiles)
+        file: this.saveFileInHashmap.bind(this, this.baselineFiles)
       }
     };
 
@@ -68,14 +74,24 @@ module.exports = {
   },
 
   /**
-   * Adds a given file to the given array
+   * Adds a given file to the given hashmap
    * @param {array} files - The hashmap where files will be stored
    * @param {string} folder - Folder where the file lives
-   * @param {string} file - File name
+   * @param {object} file - Object with information about the file. We just care
+   *        about the name attribute
    */
-  saveFileInArray: function(files, folder, file) {
+  saveFileInHashmap: function(files, folder, file) {
     var name = folder + '/' + file.name;
-    files[name.substring(this.baselinePath.length)] = sizeOf(name);
+    files[name.substring(this.baselinePath.length)] = this.getImageSize(name);
+  },
+
+  /**
+   * Wrapper for sizeOf
+   * @param {string} path - Path of the image
+   * @returns {object} dimensions object
+   */
+  getImageSize: function(path) {
+    return sizeOf(path);
   },
 
   /**
@@ -89,27 +105,40 @@ module.exports = {
    * @returns {boolean} true if everything compared correctly. False otherwise.
    */
   compare: function(opts) {
-    var success = true;
-    var self = this;
+    this.success = true;
 
     var walkerOptions = {
       listeners: {
-        file: function(folder, file) {
-          var name = folder + '/' + file.name;
-          var dimensions = sizeOf(name);
-          var relativeName = name.substring(opts.path.length);
-          var baselineDimensions = self.baselineFiles[relativeName];
-
-          if (baselineDimensions.width * opts.proportion !== dimensions.width ||
-              baselineDimensions.height * opts.proportion !== dimensions.height) {
-            success = false;
-          }
-        }
+        file: this.compareFile.bind(this, opts)
       }
     };
 
     walk.walkSync(opts.path, walkerOptions);
 
-    return success;
+    return this.success;
+  },
+
+  /**
+   * Compares a file against the baseline
+   * @param {object} opts - Object with information about the images we will
+   *        compare against: {
+   *          path: 'Path to the folder with the images to compare',
+   *          proportion: 'How large compared to the baseline we expect images
+   *              to be'
+   *        }
+   * @param {string} folder - Name of the folder where the file lives
+   * @param {object} file - Information about the file. We just care about the
+   *        name attribute
+   */
+  compareFile: function(opts, folder, file) {
+    var name = folder + '/' + file.name;
+    var dimensions = this.getImageSize(name);
+    var relativeName = name.substring(opts.path.length);
+    var baselineDimensions = this.baselineFiles[relativeName];
+
+    if (baselineDimensions.width * opts.proportion !== dimensions.width ||
+        baselineDimensions.height * opts.proportion !== dimensions.height) {
+      this.success = false;
+    }
   }
 };

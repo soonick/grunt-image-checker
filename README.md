@@ -47,7 +47,7 @@ Array of objects representing the folders you want to compare against. The forma
 ```js
 {
   path: 'Path to the folder where the resized images live',
-  proportion: 'Proportion you expect images in the given path to have compared to the baseline. If it is 2, then you expect images to be twice as large.
+  proportion: 'Proportion you expect images in the given path to have compared to the baseline. If it is 2, then you expect images to be twice as large.'
 }
 ```
 
@@ -74,6 +74,18 @@ grunt.initConfig({
 
 ## Development
 
+### Tests
+
+To run all the tests use this command:
+
+```
+grunt test
+```
+
 ### Integration tests
 
-We have a few integration tests where we expect the task to fail. For these scenarios we use a special flag: *negateOutput* to return true when the task fails and false when the task passes.
+We have a few integration tests where we expect the task to fail. For these scenarios we use a special flag: `negateOutput` to return true when the task fails and false when the task passes.
+
+### Unit tests
+
+We use mocha for our unit tests. You can find them under `tests/unit/`

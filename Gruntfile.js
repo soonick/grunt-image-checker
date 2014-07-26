@@ -9,11 +9,18 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     eslint: {
-      target: ['tasks/', 'Gruntfile.js']
+      target: ['tasks/', 'Gruntfile.js', 'tests/']
+    },
+
+    // Unit tests
+    mochaTest: {
+      test: {
+        src: ['tests/unit/**/*.js']
+      }
     },
 
     // Integration tests
-    image_check: {
+    'image_check': {
       allFilesHaveCorrectSize: {
         baseline: 'tests/integration/data/success/baseline',
         compare: [
@@ -51,4 +58,7 @@ module.exports = function(grunt) {
   grunt.loadTasks('tasks');
 
   grunt.loadNpmTasks('grunt-eslint');
+  grunt.loadNpmTasks('grunt-mocha-test');
+
+  grunt.registerTask('test', ['eslint', 'mochaTest', 'image_check']);
 };

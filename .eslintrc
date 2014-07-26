@@ -11,5 +11,11 @@
     "space-in-brackets": [2, "never"],
     "space-infix-ops": [2, true],
     "space-after-keywords": [2, "always"]
+  },
+  "globals": {
+    "describe": true,
+    "it": true,
+    "beforeEach": true,
+    "afterEach": true
   }
 }
