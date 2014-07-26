@@ -33,6 +33,18 @@ describe('checker', function() {
 
       assert.ok(checker.check(opts));
     });
+
+    it('resets baselineFiles', function() {
+      checker.baselineFiles = {hello: 'world'};
+      var opts = {
+        baseline: null,
+        compare: ['hello', 'world']
+      };
+
+      checker.check(opts);
+
+      assert.deepEqual(checker.baselineFiles, {});
+    });
   });
 
   describe('saveFileInHashmap', function() {

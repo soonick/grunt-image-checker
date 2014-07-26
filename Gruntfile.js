@@ -31,11 +31,22 @@ module.exports = function(grunt) {
         ]
       },
 
-      fileMissing: {
-        baseline: 'tests/integration/data/notStrictFileMissing/baseline',
+      baselineFileMissing: {
+        baseline: 'tests/integration/data/baselineFileMissing/baseline',
         compare: [
           {
-            path: 'tests/integration/data/notStrictFileMissing/compare',
+            path: 'tests/integration/data/baselineFileMissing/compare',
+            proportion: 2
+          }
+        ],
+        negateOutput: true
+      },
+
+      compareFileMissing: {
+        baseline: 'tests/integration/data/compareFileMissing/baseline',
+        compare: [
+          {
+            path: 'tests/integration/data/compareFileMissing/compare',
             proportion: 2
           }
         ],

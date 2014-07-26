@@ -48,6 +48,7 @@ module.exports = {
    * @returns {boolean} True if check is successful, false otherwise
    */
   check: function(opts) {
+    this.baselineFiles = {};
     this.baselinePath = opts.baseline;
     this.populateBaseline();
 
@@ -136,7 +137,8 @@ module.exports = {
     var relativeName = name.substring(opts.path.length);
     var baselineDimensions = this.baselineFiles[relativeName];
 
-    if (baselineDimensions.width * opts.proportion !== dimensions.width ||
+    if (!baselineDimensions ||
+        baselineDimensions.width * opts.proportion !== dimensions.width ||
         baselineDimensions.height * opts.proportion !== dimensions.height) {
       this.success = false;
     }
