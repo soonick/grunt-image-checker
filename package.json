@@ -1,7 +1,7 @@
 {
   "name": "grunt-image-check",
   "description": "Verify that your images are correct on different resolutions",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/soonick/grunt-image-check",
   "author": {
     "name": "Adrian Ancona Novelo",
@@ -34,7 +34,7 @@
     "sinon": "^1.10.3"
   },
   "peerDependencies": {
-    "grunt": "~0.4.4"
+    "grunt": "~0.4.0"
   },
   "dependencies": {
     "image-size": "^0.3.2",
