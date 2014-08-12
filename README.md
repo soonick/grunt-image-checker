@@ -41,6 +41,11 @@ Type: `String`
 
 Path to a folder where the images that are going to be used as baseline live
 
+#### optsion.match
+Type: `String`
+
+A minimatch pattern that will be used to chose the files we actually want to compare. All files not matching the pattern will be ignored
+
 #### options.compare
 Type: `Array`
 

@@ -13,6 +13,7 @@ describe('checker', function() {
 
     afterEach(function() {
       this.sb.restore();
+      checker.matchPattern = null;
     });
 
     it('returns false if any compare fails', function() {
@@ -45,10 +46,53 @@ describe('checker', function() {
 
       assert.deepEqual(checker.baselineFiles, {});
     });
+
+    it('saves matchPattern', function() {
+      var opts = {
+        match: '*/*.jpg'
+      };
+
+      checker.check(opts);
+
+      assert.equal(checker.matchPattern, '*/*.jpg');
+    });
   });
 
   describe('saveFileInHashmap', function() {
-    it('saves file in given array', function() {
+    afterEach(function() {
+      checker.matchPattern = null;
+    });
+
+    it('saves file in given hashmap', function() {
+      var hash = {};
+      sinon.stub(checker, 'getImageSize').returns('size');
+      checker.baselinePath = '/hello/world/';
+
+      checker.saveFileInHashmap(hash, '/hello/world', {name: 'green.txt'});
+
+      var expected = {
+        'green.txt': 'size'
+      };
+      assert.deepEqual(hash, expected);
+
+      checker.getImageSize.restore();
+    });
+
+    it('does not save file not matching matchPattern', function() {
+      checker.matchPattern = '*.jpg';
+      var hash = {};
+      sinon.stub(checker, 'getImageSize').returns('size');
+      checker.baselinePath = '/hello/world/';
+
+      checker.saveFileInHashmap(hash, '/hello/world', {name: 'green.txt'});
+
+      assert.deepEqual(hash, {});
+
+      checker.getImageSize.restore();
+    });
+
+    it('saves file matching matchPattern', function() {
+      checker.matchPattern = '*.txt';
       var hash = {};
       sinon.stub(checker, 'getImageSize').returns('size');
       checker.baselinePath = '/hello/world/';
@@ -111,6 +155,18 @@ describe('checker', function() {
       checker.compareFile(opts, '/hello/planet', {name: 'hola'});
 
       assert.ok(!checker.success);
+    });
+
+    it('does not check file if it does not match matchPattern', function() {
+      checker.matchPattern = '*.txt';
+      var opts = {
+        path: '/hello',
+        proportion: 3
+      };
+
+      checker.compareFile(opts, '/hello/planet', {name: 'hola'});
+
+      assert.ok(!checker.getImageSize.called);
     });
   });
 });

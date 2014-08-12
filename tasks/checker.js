@@ -6,8 +6,9 @@
  * Licensed under the MIT license.
  */
 
-var walk = require('walk');
+var minimatch = require('minimatch');
 var sizeOf = require('image-size');
+var walk = require('walk');
 
 module.exports = {
   /**
@@ -31,6 +32,12 @@ module.exports = {
   baselineFiles: {},
 
   /**
+   * Only files matching this pattern will be compared
+   * @type {string}
+   */
+  matchPattern: null,
+
+  /**
    * Entry point for the checker.
    * @param {object} opts - Configuration object: {
    *    baseline: 'Path to the folder where the images we will use as baseline live',
@@ -50,6 +57,7 @@ module.exports = {
   check: function(opts) {
     this.baselineFiles = {};
     this.baselinePath = opts.baseline;
+    this.matchPattern = opts.match;
     this.populateBaseline();
 
     for (var i in opts.compare) {
@@ -83,7 +91,15 @@ module.exports = {
    */
   saveFileInHashmap: function(files, folder, file) {
     var name = folder + '/' + file.name;
-    files[name.substring(this.baselinePath.length)] = this.getImageSize(name);
+    var relativePath = name.substring(this.baselinePath.length);
+
+    if (this.matchPattern) {
+      if (minimatch(relativePath, this.matchPattern)) {
+        files[relativePath] = this.getImageSize(name);
+      }
+    } else {
+      files[relativePath] = this.getImageSize(name);
+    }
   },
 
   /**
@@ -133,10 +149,17 @@ module.exports = {
    */
   compareFile: function(opts, folder, file) {
     var name = folder + '/' + file.name;
-    var dimensions = this.getImageSize(name);
     var relativeName = name.substring(opts.path.length);
+
+    if (this.matchPattern) {
+      if (!minimatch(relativeName, this.matchPattern)) {
+        return;
+      }
+    }
+
     var baselineDimensions = this.baselineFiles[relativeName];
 
+    var dimensions = this.getImageSize(name);
     if (!baselineDimensions ||
         baselineDimensions.width * opts.proportion !== dimensions.width ||
         baselineDimensions.height * opts.proportion !== dimensions.height) {

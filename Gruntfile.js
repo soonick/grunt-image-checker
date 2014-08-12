@@ -73,6 +73,41 @@ module.exports = function(grunt) {
           }
         ],
         negateOutput: true
+      },
+
+      justFilesInFolders: {
+        baseline: 'tests/integration/data/justFilesInFolders/baseline',
+        match: '/*/*',
+        compare: [
+          {
+            path: 'tests/integration/data/justFilesInFolders/compare',
+            proportion: 2
+          }
+        ]
+      },
+
+      justFilesInFoldersWithFailure: {
+        baseline: 'tests/integration/data/justFilesInFoldersWithFailure/baseline',
+        match: '/*/*',
+        compare: [
+          {
+            path: 'tests/integration/data/justFilesInFoldersWithFailure/compare',
+            proportion: 2
+          }
+        ],
+        negateOutput: true
+      },
+
+      justFilesInFoldersWithMissing: {
+        baseline: 'tests/integration/data/justFilesInFoldersWithMissing/baseline',
+        match: '/*/*',
+        compare: [
+          {
+            path: 'tests/integration/data/justFilesInFoldersWithMissing/compare',
+            proportion: 2
+          }
+        ],
+        negateOutput: true
       }
     }
   });
