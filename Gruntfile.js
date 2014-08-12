@@ -62,6 +62,17 @@ module.exports = function(grunt) {
           }
         ],
         negateOutput: true
+      },
+
+      filesInFolders: {
+        baseline: 'tests/integration/data/filesInFolders/baseline',
+        compare: [
+          {
+            path: 'tests/integration/data/filesInFolders/compare',
+            proportion: 2
+          }
+        ],
+        negateOutput: true
       }
     }
   });
